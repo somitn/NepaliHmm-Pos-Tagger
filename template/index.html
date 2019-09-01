@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parts-of-Speech Tagger for Nepali Text Using SVM</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1-dist\css\bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'bootstrap-4.3.1-dist\js\bootstrap.min.js' %}"></script>
+     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.4.1-dist\css\bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'bootstrap-3.4.1-dist\js\bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-4.3.1-dist\js\event.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<body style="background-color: #FEFFFE">
+
+
+
+  <div class="jumbotron jump">
+      <h1 style="font-weight:100;color:rgba(92, 0, 0, 0.99);font-weight: bold;">नेपाली POS Tagger
+      </h1>
+</div>
+
+
+
+    <div class="row" style="bgcolor:#E6E6FA">
+        <div class="col-md-8">
+            <div class="jumbotron" style="padding:25px;background-color: transparent;color:white">
+              <div class="container">
+                <p style="color: #242331;font-family: 'Roboto', sans-serif;"  class="display-1">Enter a complete sentence (no single words!) and click at "POS-tag!". The tagging works better when Grammar and Orthography are correct
+                </p><hr>
+                <form class="form" method="post" action="{% url 'paragraph' %}" >
+
+                    <div class="form-group">
+                        <p  for="email" style="color: #040303;font-family: 'Open Sans', sans-serif;">Enter Nepali text</p>
+                        {%csrf_token%}
+                        <input type="text"  class="form-control" id="email" name="testSentence" style="height: 50px;padding: 0px;font-size: 15px;" required>
+
+                      </div>
+                    <button type="submit" class="btn btn-submit btn-primary " style="height: 30px;font-size: 15px;" onclick="showTags()">
+                        <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
+                        POS-tag!
+                        </button>
+                </form>
+
+                <br><br>
+                <p style="color:black;padding:16px;font-size:15px;height: 50px" class="alert alert-warning"> * Computers can make mistakes too!</p>
+              </div>
+            </div>
+        </div>
+
+           <div class="col-md-4" id="event">
+               {%if postag%}
+               <h3>POS tagged nepali words</h3>
+
+                <div class="jumbotron" style="padding:20px;">
+
+                    <strong>
+                    <!--<form class="form" method="post" action="{% url 'paragraph' %}" >-->
+                    <!--<div class="form-group">-->
+                        {%csrf_token%}
+
+                        {{postag | linebreaksbr}}
+                                            {{text}}
+                    </strong>
+                    {% endif %}
+
+
+                      <!--</div>-->
+                    <!--</form>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
